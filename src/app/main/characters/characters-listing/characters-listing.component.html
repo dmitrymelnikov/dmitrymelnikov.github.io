@@ -1,0 +1,103 @@
+<div class="page-layout simple inner-scroll">
+    <!-- HEADER -->
+    <div class="header accent">
+        <!-- FILTERS -->
+        <form fxLayout="row wrap" fxLayoutAlign="center"
+              name="searchForm" [formGroup]="searchForm">
+
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Movie</mat-label>
+                    <mat-select formControlName="film">
+                        <mat-option [value]="''">
+                            N/A
+                        </mat-option>
+                        <mat-option *ngFor="let film of (charactersStore.films$ | async)" [value]="film.url">
+                            {{film.title}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Species</mat-label>
+                    <mat-select formControlName="species">
+                        <mat-option [value]="''">
+                            N/A
+                        </mat-option>
+                        <mat-option *ngFor="let species of (charactersStore.species$ | async)" [value]="species.url">
+                            {{species.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Birth From</mat-label>
+                    <mat-select formControlName="yearsFrom">
+                        <mat-option [value]="''">
+                            N/A
+                        </mat-option>
+                        <mat-option *ngFor="let date of (charactersStore.birthDates$ | async)" [value]="date">
+                            {{date}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Birth To</mat-label>
+                    <mat-select formControlName="yearsTo">
+                        <mat-option [value]="''">
+                            N/A
+                        </mat-option>
+                        <mat-option *ngFor="let date of (charactersStore.birthDates$ | async)" [value]="date">
+                            {{date}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+            <!-- / FILTERS -->
+    </div>
+    <!-- / HEADER -->
+    <!-- LISTING -->
+    <div class="center p-24" fusePerfectScrollbar>
+        <div class="content">
+            <mat-table #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let character">
+                        <p class="name text-truncate">{{character.name}}</p>
+                    </mat-cell>
+                </ng-container>
+                <!-- Species Column -->
+                <ng-container matColumnDef="species">
+                    <mat-header-cell *matHeaderCellDef>Species</mat-header-cell>
+                    <mat-cell *matCellDef="let character">
+                        <p *ngFor="let species of character.speciesRef" class="species text-truncate">{{species.name}}</p>
+                    </mat-cell>
+                </ng-container>
+                <!-- Birth Year Column -->
+                <ng-container matColumnDef="birthYear">
+                    <mat-header-cell *matHeaderCellDef>Birth Year</mat-header-cell>
+                    <mat-cell *matCellDef="let character">
+                        <p class="birth-year text-truncate">{{character.birth_year}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="['name', 'species', 'birthYear']"></mat-header-row>
+                <mat-row *matRowDef="let character; columns: ['name', 'species', 'birthYear'];"
+                         class="character"
+                         (click)="showCharacter(character)"
+                         matRipple
+                         [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+    </div>
+    <!-- / LISTING -->
+</div>

@@ -1,0 +1,23 @@
+@import "src/@fuse/scss/fuse";
+
+app-characters-listing {
+    width: 100%;
+
+    .header {
+        padding: 16px 16px 0 16px;
+    }
+
+    .mat-form-field-wrapper {
+        margin: 0 10px !important;
+    }
+    
+    .mat-table {
+        background: transparent;
+        box-shadow: none;
+
+        .mat-row {
+            position: relative;
+            cursor: pointer;
+        }
+    }
+}

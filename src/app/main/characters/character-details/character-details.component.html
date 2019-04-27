@@ -1,0 +1,47 @@
+<div class="page-layout simple">
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="start end">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+             fxLayoutAlign.gt-sm="start center">
+            <div class="name">
+                {{(charactersStore.selectedCharacter$ | async)?.name}}
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+             fxLayoutAlign.gt-sm="start center">
+            <div class="species">
+                <span *ngFor="let species of (charactersStore.selectedCharacter$ | async)?.speciesRef">{{species.name}}</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <!-- CONTENT -->
+    <div class="content about-content">
+        <div class="p-24" fxLayout="row wrap">
+            <div fxLayout="row wrap" fxLayoutAlign="center">
+                <div class="profile-box info-box" fxLayout="column">
+                    <header class="accent">
+                        <div class="title">Movies</div>
+                    </header>
+                    <div class="content">
+                        <div class="info-line" *ngFor="let film of (charactersStore.selectedCharacter$ | async)?.filmsRef">
+                            <div class="info">{{film.title}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-box info-box" fxLayout="column">
+                    <header class="accent">
+                        <div class="title">Spaceships</div>
+                    </header>
+                    <div class="content">
+                        <div class="info-line" *ngFor="let starship of (charactersStore.selectedCharacter$ | async)?.starshipsRef">
+                            <div class="info">{{starship.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>
